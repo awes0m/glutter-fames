@@ -1,0 +1,240 @@
+import 'dart:async';
+
+import 'package:flappy_som/models/barriers.dart';
+import 'package:flappy_som/models/bird.dart';
+import 'package:flappy_som/utils/textstyles.dart';
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // bird Variables
+  static double birdY = 0;
+  double initialPos = birdY;
+  static double birdWidth = 0.25;
+  static double birdHeight = 0.25;
+
+  //Physics Variables
+  double height = 0;
+  double time = 0;
+  double velocity = 3.5; // How strong the Jump is
+  double gravity = -4.9; // How Strong the gravity is
+
+  // Game Variables
+  bool gameStarted = false;
+  int score = 0;
+  int highScore = 0;
+
+  // Barrier Variables
+  static List<double> barrierX = [2, 2 + 1.5];
+  static double barrierWidth = 0.5;
+  static List<List<double>> barrierHeight = [
+    [0.6, 0.4],
+    [0.4, 0.6],
+  ];
+
+  void startgame() {
+    gameStarted = true;
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      // a real physical jump is same as  an upside down parabola
+      // y = -4.9x^2 + 5x + 0.5- So this is a simple quadratic eaquation
+      height = gravity * time * time + velocity * time;
+      setState(() {
+        birdY = initialPos - height;
+      });
+
+      // Check if the bird has hit the ground
+      if (birdIsDead()) {
+        timer.cancel();
+        gameStarted = false;
+        _showDialog();
+      }
+      //Keep the clock ticking
+      time += 0.1;
+    });
+  }
+
+  /// [_showDialog] shows a Dialog Box when the game is over
+  /// [_showDialog] also updates the high score if the current score is higher
+  /// [_showDialog] also shows the current score
+  /// [_showDialog] also has a button to restart the game [resetGame]
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.brown,
+          title: const Text(
+            'Game Over',
+            style: TextStyle(color: Colors.white),
+          ),
+          content: Text('Your Score is ${score.toString()}',
+              style: const TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: resetGame,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                  padding: const EdgeInsets.all(7),
+                  color: Colors.green,
+                  child: const Text(
+                    'Play Again',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  /// [resetGame] resets the game to its initial state
+  void resetGame() {
+    Navigator.pop(context);
+    setState(() {
+      birdY = 0.0;
+      gameStarted = false;
+      time = 0;
+      score = 0;
+      initialPos = birdY;
+    });
+  }
+
+  ///[jump] resets the bird to its initial position
+  void jump() {
+    setState(() {
+      time = 0;
+      initialPos = birdY;
+    });
+  }
+
+  /// [birdIsDead] checks if the bird has hit the ground or sky
+  static bool birdIsDead() {
+    // Check if the bird has hit the ground or sky
+    if (birdY < -1 || birdY > 1) {
+      return true;
+    }
+    // Check if the bird has hit the barrier
+    for (int i = 0; i < barrierX.length; i++) {
+      if (barrierX[i] <= birdWidth &&
+          barrierX[i] + barrierWidth >= -birdWidth &&
+          (birdY <= -1 + barrierHeight[i][0] ||
+              birdY + birdHeight >= 1 - barrierHeight[i][1])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: gameStarted ? jump : startgame,
+      child: Scaffold(
+        body: Column(
+          children: [
+            //Upper Game screen
+            Expanded(
+              flex: 3,
+              child: Container(
+                color: Colors.blue,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      //bird
+                      MyBird(
+                        birdY: birdY,
+                        birdHeight: birdHeight,
+                        birdWidth: birdWidth,
+                      ),
+                      //4 barriers
+                      // Top Barrier 0
+                      MyBarrier(
+                        barrierX: barrierX[0],
+                        barrierHeight: barrierHeight[0][0],
+                        barrierWidth: barrierWidth,
+                        isThisBottomBarrier: false,
+                      ),
+                      // Bottom Barrier 0
+                      MyBarrier(
+                        barrierX: barrierX[0],
+                        barrierHeight: barrierHeight[0][1],
+                        barrierWidth: barrierWidth,
+                        isThisBottomBarrier: true,
+                      ),
+                      // Top Barrier 1
+                      MyBarrier(
+                        barrierX: barrierX[1],
+                        barrierHeight: barrierHeight[1][0],
+                        barrierWidth: barrierWidth,
+                        isThisBottomBarrier: false,
+                      ),
+                      // Bottom Barrier 1
+                      MyBarrier(
+                        barrierX: barrierX[1],
+                        barrierHeight: barrierHeight[1][1],
+                        barrierWidth: barrierWidth,
+                        isThisBottomBarrier: true,
+                      ),
+
+                      // TAP to play text
+                      Container(
+                        alignment: const Alignment(0, -0.3),
+                        child: Text(
+                          gameStarted ? '' : "T A P  T O  P L A Y ",
+                          style: AppTextStyle.mediumText(Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            //Lower Game screen green bar
+            Container(height: 15, color: Colors.green[400]),
+            //Score section
+            Expanded(
+              child: Container(
+                color: Colors.brown[400],
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //Score
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('SCORE',
+                              style: AppTextStyle.mediumText(Colors.white)),
+                          const SizedBox(height: 20),
+                          Text(score.toString(),
+                              style: AppTextStyle.bigText(Colors.white)),
+                        ],
+                      ),
+                      //High Score
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('BEST',
+                              style: AppTextStyle.mediumText(Colors.white)),
+                          const SizedBox(height: 20),
+                          Text(highScore.toString(),
+                              style: AppTextStyle.bigText(Colors.white)),
+                        ],
+                      )
+                    ]),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
