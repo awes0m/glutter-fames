@@ -4,10 +4,38 @@ A sliding puzzle, sliding block puzzle, or sliding tile puzzle is a combination 
 
 Sliding puzzles are essentially two-dimensional in nature, even if the sliding is facilitated by mechanically interlinked pieces (like partially encaged marbles) or three-dimensional tokens. In manufactured wood and plastic products, the linking and encaging is often achieved in combination, through mortise-and-tenon key channels along the edges of the pieces. In at least one vintage case of the popular Chinese cognate game Huarong Road, a wire screen prevents lifting of the pieces, which remain loose. As the illustration shows, some sliding puzzles are mechanical puzzles. However, the mechanical fixtures are usually not essential to these puzzles; the parts could as well be tokens on a flat board that are moved according to certain rules.
 
+## Solution:
+
+<Table>
+        <tr>
+            <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        </tr>
+        <tr>
+            <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        </tr>
+        <tr>
+            <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        </tr>
+        <tr>
+            <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        </tr>
+</Table>
 
 ## ScreenShot
 
-<img src="https://github.com/awes0m/glutter-fames/blob/main/sliding_puzzle/SCREENSHOTS/sliding_puzzle/SCREENSHOTS/sliderGameScreenshot.png" alt="Screenshot of Sliderr" title="Sliderr" size=100px >
+<img src="https://github.com/awes0m/glutter-fames/blob/main/sliding_puzzle/SCREENSHOTS/sliderGameScreenshot.png" alt="Screenshot of Sliderr" title="Sliderr" size=100px >
 
 ## Getting Started
 
