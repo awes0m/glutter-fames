@@ -1,4 +1,5 @@
 # flappy_som
+html_title = flappy_som
 
 A new Flutter project.
 
@@ -25,4 +26,4 @@ height= -g*t^2/2 + v*t + initial position/height
 
 =-4.9*t^2+ 5*t + 0
 
-[Alt text](SCREENSHOTS\Screenshot_1653751059.png "Flappy SOM")
+<img src="flappy_som\SCREENSHOTS\Screenshot_1653751059.png" alt="Screenshot of Flappy Bird" title="Optional title">
