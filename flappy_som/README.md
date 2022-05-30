@@ -8,7 +8,7 @@ initial position: initial position(x) = 0 m
 
 height= -g*t^2/2 + v*t + initial position/height=-4.9*t^2+ 5*t + 0
 
-<img src="https://github.com/awes0m/glutter-fames/blob/main/flappy_som/SCREENSHOTS/Screenshot_1653751059.png" alt="Screenshot of Flappy Bird" title="Flappy Som" size=100px >
+<img src="https://github.com/awes0m/glutter-fames/blob/main/flappy_som/SCREENSHOTS/Screenshot_1653751059.png" alt="Screenshot of Flappy Bird" title="Flappy Som"   width="200px" height="auto">
 
 ## Getting Started with Flutter
 
