@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Sliderrrrrr',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const Board(),
     );

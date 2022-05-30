@@ -6,17 +6,21 @@ class ResetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12),
-      child: ElevatedButton(
-          onPressed: reset,
-          style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ),
-          child: const Text("Reset")),
+    return OutlinedButton(
+      onPressed: reset,
+      style: TextButton.styleFrom(
+        primary: Colors.white,
+        shadowColor: Colors.black54,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+      child: const Text("Reset",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          )),
     );
   }
 }

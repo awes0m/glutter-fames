@@ -19,16 +19,33 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: size.height * 0.10,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ResetButton(reset: reset),
-            Move(move: move),
-            Time(secondsPassed: secondsPassed),
-          ]),
+      width: size.width * 0.95,
+      decoration: const BoxDecoration(
+        color: Colors.blueGrey,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black38,
+            blurRadius: 10,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ResetButton(reset: reset),
+              Divider(color: Colors.white, thickness: 2),
+              Move(move: move),
+              Divider(color: Colors.white, thickness: 2),
+              Time(secondsPassed: secondsPassed),
+            ]),
+      ),
     );
   }
 }

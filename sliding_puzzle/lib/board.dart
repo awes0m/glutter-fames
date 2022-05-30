@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sliding_puzzle/widgets/drawer.dart';
 import 'package:sliding_puzzle/widgets/mytitle.dart';
 
 import 'widgets/grid.dart';
@@ -18,8 +19,12 @@ class _BoardState extends State<Board> {
   int move = 0;
   int secondsPassed = 0;
 
+  ///Timer for the game
   Timer? timer;
+
+  ///Whether the game is running or not
   bool isActive = false;
+
   @override
   void initState() {
     numbers.shuffle();
@@ -30,24 +35,35 @@ class _BoardState extends State<Board> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    timer ??= Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer ??= Timer.periodic(const Duration(seconds: 1), (Timer t) {
       startTime();
     });
     return SafeArea(
-        child: Container(
-      height: size.height,
-      color: Colors.blueGrey,
-      child: Column(
-        children: <Widget>[
-          MyTitle(size: size),
-          Grid(numbers: numbers, size: size, clickGrid: () => clickGrid),
-          Menu(
-            reset: reset,
-            move: move,
-            secondsPassed: secondsPassed,
-            size: size,
-          ),
-        ],
+        child: Scaffold(
+      appBar: MyTitle(size: size),
+      drawer: drawer(context),
+      body: Container(
+        height: size.height,
+        color: Colors.blueGrey,
+        child: Column(
+          // mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Grid(
+              numbers: numbers,
+              size: size,
+              clickGrid: (index) => clickGrid(index),
+            ),
+            Menu(
+              reset: reset,
+              move: move,
+              secondsPassed: secondsPassed,
+              size: size,
+            ),
+          ],
+        ),
       ),
     ));
   }
@@ -61,7 +77,7 @@ class _BoardState extends State<Board> {
         (index - 4 >= 0 && numbers[index - 4] == 0) ||
         (index + 4 < 16 && numbers[index + 4] == 0)) {
       setState(() {
-        move+=1;
+        move += 1;
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
       });
@@ -81,14 +97,14 @@ class _BoardState extends State<Board> {
   void startTime() {
     if (isActive) {
       setState(() {
-        secondsPassed+=1;
+        secondsPassed = secondsPassed + 1;
       });
     }
   }
 
   bool isSorted(List list) {
     int prev = list.first;
-    for (var i = 1; i < list.length - 1; i+=1) {
+    for (var i = 1; i < list.length - 1; i += 1) {
       int next = list[i];
       if (prev > next) return false;
       prev = next;
@@ -123,12 +139,12 @@ class _BoardState extends State<Board> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
                           child: const Text(
                             "Close",
                             style: TextStyle(color: Colors.white),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.blue,
                           ),
                         ),
                       )

@@ -7,13 +7,15 @@ class Time extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12),
-      child: Text("Time: $secondsPassed",
-          style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              decoration: TextDecoration.none)),
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        "Time: $secondsPassed",
+        style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            decoration: TextDecoration.none),
+      ),
     );
   }
 }

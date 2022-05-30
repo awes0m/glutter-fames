@@ -7,7 +7,7 @@ class Move extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.all(8.0),
       child: Text("Move: $move",
           style: const TextStyle(
               fontSize: 20,

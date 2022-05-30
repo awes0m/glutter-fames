@@ -18,7 +18,7 @@ class Grid extends StatelessWidget {
     var height = size.height;
 
     return SizedBox(
-        height: height * 0.80,
+        height: height * 0.70,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
