@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_puzzle/utils/constants.dart';
 
 class ResetButton extends StatelessWidget {
   final VoidCallback reset;
@@ -6,21 +7,15 @@ class ResetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
       onPressed: reset,
       style: TextButton.styleFrom(
-        primary: Colors.white,
-        shadowColor: Colors.black54,
+        primary: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      child: const Text("Reset",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          )),
+      child: Text("Restart", style: normalText(context, getSize(context))),
     );
   }
 }

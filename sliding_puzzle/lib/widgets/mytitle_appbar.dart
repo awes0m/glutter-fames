@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sliding_puzzle/utils/constants.dart';
 
 class MyTitle extends StatelessWidget with PreferredSizeWidget {
   final Size size;
@@ -11,18 +11,21 @@ class MyTitle extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: IconButton(
+          icon: Icon(
+            Icons.menu_sharp,
+            size: size.height * 0.05,
+            color: Theme.of(context).textTheme.headline1!.color,
+          ),
+          onPressed: () => Scaffold.of(context).openDrawer()),
+      backgroundColor: Theme.of(context).primaryColor,
       elevation: 6,
-      shadowColor: Colors.blueGrey,
+      shadowColor: Theme.of(context).shadowColor,
       title: Container(
         padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
         child: Center(
           child: Text("Sliderr !",
-              style: TextStyle(
-                  fontSize: size.height * 0.05,
-                  fontFamily: GoogleFonts.lobster().fontFamily,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white,
-                  decoration: TextDecoration.none)),
+              style: titleText(context, getSize(context))),
         ),
       ),
     );

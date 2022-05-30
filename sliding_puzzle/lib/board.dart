@@ -1,13 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_puzzle/widgets/drawer.dart';
-import 'package:sliding_puzzle/widgets/mytitle.dart';
+import 'package:sliding_puzzle/widgets/mytitle_appbar.dart';
 
+import 'utils/constants.dart';
+import 'utils/theme_model.dart';
 import 'widgets/grid.dart';
 import 'widgets/menu.dart';
 
 class Board extends StatefulWidget {
+  static const String routeName = '/';
   const Board({Key? key}) : super(key: key);
 
   @override
@@ -33,39 +37,42 @@ class _BoardState extends State<Board> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = getSize(context);
 
     timer ??= Timer.periodic(const Duration(seconds: 1), (Timer t) {
       startTime();
     });
-    return SafeArea(
-        child: Scaffold(
-      appBar: MyTitle(size: size),
-      drawer: drawer(context),
-      body: Container(
-        height: size.height,
-        color: Colors.blueGrey,
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Grid(
-              numbers: numbers,
-              size: size,
-              clickGrid: (index) => clickGrid(index),
-            ),
-            Menu(
-              reset: reset,
-              move: move,
-              secondsPassed: secondsPassed,
-              size: size,
-            ),
-          ],
+    return Consumer<ThemeModel>(
+        builder: (context, ThemeModel themeNotifier, child) {
+      return SafeArea(
+          child: Scaffold(
+        appBar: MyTitle(size: size),
+        drawer: drawer(context, themeNotifier),
+        body: Container(
+          height: size.height,
+          color: Theme.of(context).primaryColor,
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+              Grid(
+                numbers: numbers,
+                size: size,
+                clickGrid: (index) => clickGrid(index),
+              ),
+              Menu(
+                reset: reset,
+                move: move,
+                secondsPassed: secondsPassed,
+                size: size,
+              ),
+            ],
+          ),
         ),
-      ),
-    ));
+      ));
+    });
   }
 
   void clickGrid(index) {

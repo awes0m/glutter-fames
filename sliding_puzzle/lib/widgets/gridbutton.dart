@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class GridButton extends StatelessWidget {
   final VoidCallback click;
   final String text;
@@ -11,13 +12,12 @@ class GridButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: click,
       style: ElevatedButton.styleFrom(
-        elevation: 5,
-        primary: Colors.white,
-        surfaceTintColor: Colors.amber,
-        shadowColor: Colors.black38,
+        elevation: 30,
+        primary: Theme.of(context).primaryColor,
+        shadowColor: Theme.of(context).shadowColor.withOpacity(0.5),
         shape: RoundedRectangleBorder(
-          side: const BorderSide(
-            color: Colors.black26,
+          side: BorderSide(
+            color: Theme.of(context).shadowColor.withOpacity(0.2),
             width: 2,
           ),
           borderRadius: BorderRadius.circular(10.0),
@@ -25,10 +25,10 @@ class GridButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: Theme.of(context).textTheme.headline1?.color,
         ),
       ),
     );

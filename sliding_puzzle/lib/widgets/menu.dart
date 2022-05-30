@@ -21,15 +21,15 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: size.height * 0.10,
-      width: size.width * 0.95,
-      decoration: const BoxDecoration(
-        color: Colors.blueGrey,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+      width: size.width * 0.93,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black38,
-            blurRadius: 10,
-            spreadRadius: 5,
+            color: Theme.of(context).shadowColor.withOpacity(0.5),
+            blurRadius: 3,
+            spreadRadius: 3,
           ),
         ],
       ),
@@ -40,9 +40,9 @@ class Menu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ResetButton(reset: reset),
-              const Divider(color: Colors.white, thickness: 2),
+              const Divider(color: Colors.black54, thickness: 0),
               Move(move: move),
-              const Divider(color: Colors.white, thickness: 2),
+              const Divider(color: Colors.black54, thickness: 0),
               Time(secondsPassed: secondsPassed),
             ]),
       ),

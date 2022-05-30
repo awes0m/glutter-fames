@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_puzzle/utils/constants.dart';
 
 class Time extends StatelessWidget {
   final int secondsPassed;
@@ -8,14 +9,8 @@ class Time extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "Time: $secondsPassed",
-        style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            decoration: TextDecoration.none),
-      ),
+      child: Text("Time: $secondsPassed",
+          style: normalText(context, getSize(context))),
     );
   }
 }
