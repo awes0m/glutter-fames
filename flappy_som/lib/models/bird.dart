@@ -5,7 +5,10 @@ class MyBird extends StatelessWidget {
   final double birdWidth;
   final double birdHeight;
   const MyBird(
-      {Key? key, required this.birdY, required this.birdHeight, required this.birdWidth})
+      {Key? key,
+      required this.birdY,
+      required this.birdHeight,
+      required this.birdWidth})
       : super(key: key);
 
   @override
@@ -15,8 +18,8 @@ class MyBird extends StatelessWidget {
       child: Image.asset(
         'assets/flappy.png',
         fit: BoxFit.fill,
-        height: MediaQuery.of(context).size.height * 3 / 4 * birdHeight / 2,
         width: MediaQuery.of(context).size.width * birdWidth / 2,
+        height: MediaQuery.of(context).size.height * 3 / 4 * birdHeight / 2,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flappy_som/models/barriers.dart';
 import 'package:flappy_som/models/bird.dart';
@@ -16,13 +17,13 @@ class _HomePageState extends State<HomePage> {
   // bird Variables
   static double birdY = 0;
   double initialPos = birdY;
-  static double birdWidth = 0.25;
-  static double birdHeight = 0.25;
+  static double birdWidth = 0.2;
+  static double birdHeight = 0.2;
 
   //Physics Variables
   double height = 0;
   double time = 0;
-  double velocity = 3.5; // How strong the Jump is
+  double velocity = .3; // How strong the Jump is
   double gravity = -4.9; // How Strong the gravity is
 
   // Game Variables
@@ -34,8 +35,8 @@ class _HomePageState extends State<HomePage> {
   static List<double> barrierX = [2, 2 + 1.5];
   static double barrierWidth = 0.5;
   static List<List<double>> barrierHeight = [
-    [0.6, 0.4],
-    [0.4, 0.6],
+    [0.4, 0.3],
+    [0.3, 0.5],
   ];
 
   void startgame() {
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     Timer.periodic(const Duration(milliseconds: 10), (timer) {
       // a real physical jump is same as  an upside down parabola
       // y = -4.9x^2 + 5x + 0.5- So this is a simple quadratic eaquation
-      height = gravity * time * time + velocity * time;
+      height = (gravity * time * time) + (velocity * time);
       setState(() {
         birdY = initialPos - height;
       });
@@ -54,15 +55,30 @@ class _HomePageState extends State<HomePage> {
         gameStarted = false;
         _showDialog();
       }
+      //Keep the Map Moving
+      moveMap();
       //Keep the clock ticking
       time += 0.1;
     });
   }
 
+  void moveMap() {
+    for (int i = 0; i < barrierX.length; i++) {
+      barrierX[i] -= 0.1;
+      if (barrierX[i] < -1) {
+        barrierX[i] = 2;
+        barrierHeight[i] = [
+          randomBetween(0.6, 0.8),
+          randomBetween(0.6, 0.8),
+        ];
+      }
+    }
+  }
+
   /// [_showDialog] shows a Dialog Box when the game is over
-  /// [_showDialog] also updates the high score if the current score is higher
-  /// [_showDialog] also shows the current score
-  /// [_showDialog] also has a button to restart the game [resetGame]
+  ///  -also updates the high score if the current score is higher
+  ///  -also shows the current score
+  /// - also has a button to restart the game [resetGame]
   void _showDialog() {
     showDialog(
       context: context,
@@ -113,6 +129,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       time = 0;
       initialPos = birdY;
+      moveMap();
     });
   }
 
@@ -123,7 +140,7 @@ class _HomePageState extends State<HomePage> {
       return true;
     }
     // Check if the bird has hit the barrier
-    for (int i = 0; i < barrierX.length; i++) {
+    for (int i = 0; i < barrierX.length; i = i + 1) {
       if (barrierX[i] <= birdWidth &&
           barrierX[i] + barrierWidth >= -birdWidth &&
           (birdY <= -1 + barrierHeight[i][0] ||
@@ -155,6 +172,14 @@ class _HomePageState extends State<HomePage> {
                         birdHeight: birdHeight,
                         birdWidth: birdWidth,
                       ),
+                      // TAP to play text
+                      Container(
+                        alignment: const Alignment(0, -0.3),
+                        child: Text(
+                          gameStarted ? '' : "T A P  T O  P L A Y ",
+                          style: AppTextStyle.mediumText(Colors.black),
+                        ),
+                      ),
                       //4 barriers
                       // Top Barrier 0
                       MyBarrier(
@@ -183,15 +208,6 @@ class _HomePageState extends State<HomePage> {
                         barrierHeight: barrierHeight[1][1],
                         barrierWidth: barrierWidth,
                         isThisBottomBarrier: true,
-                      ),
-
-                      // TAP to play text
-                      Container(
-                        alignment: const Alignment(0, -0.3),
-                        child: Text(
-                          gameStarted ? '' : "T A P  T O  P L A Y ",
-                          style: AppTextStyle.mediumText(Colors.black),
-                        ),
                       ),
                     ],
                   ),
@@ -237,4 +253,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+double randomBetween(double d, double e) {
+  return d + (e - d) * Random().nextDouble();
 }

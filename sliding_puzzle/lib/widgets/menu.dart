@@ -40,9 +40,9 @@ class Menu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ResetButton(reset: reset),
-              Divider(color: Colors.white, thickness: 2),
+              const Divider(color: Colors.white, thickness: 2),
               Move(move: move),
-              Divider(color: Colors.white, thickness: 2),
+              const Divider(color: Colors.white, thickness: 2),
               Time(secondsPassed: secondsPassed),
             ]),
       ),
