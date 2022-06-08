@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_puzzle/utils/constants.dart';
 
 import 'shared_preferences.dart';
 
@@ -46,19 +47,19 @@ ThemeData dark = ThemeData.from(
     button: TextStyle(color: Colors.white),
     overline: TextStyle(color: Colors.white),
   ),
-  colorScheme: ColorScheme.dark(
-    shadow: Colors.black,
-    primary: Colors.indigo[400]!,
-    onPrimary: Colors.indigo[900]!,
-    secondary: Colors.indigo[400]!,
-    onSecondary: Colors.indigo[900]!,
-    surface: Colors.indigo[400]!,
-    onSurface: Colors.indigo[900]!,
-    background: Colors.indigo[400]!,
-    onBackground: Colors.indigo[900]!,
+  colorScheme: ColorScheme(
+    shadow: kDarkShadow,
+    primary: kDarkBackground,
+    secondary: Colors.indigo[900]!,
     error: Colors.orange,
     onError: Colors.orangeAccent,
     brightness: Brightness.dark,
+    background: kDarkBackground,
+    onBackground: kDarkShadow,
+    onPrimary: kDarkShadow,
+    onSecondary: Colors.indigoAccent,
+    onSurface: kDarkShadow,
+    surface: kDarkBackground,
   ),
 );
 
@@ -78,17 +79,24 @@ ThemeData light = ThemeData.from(
     button: TextStyle(color: Colors.deepPurple[900]!),
     overline: TextStyle(color: Colors.deepPurple[900]!),
   ),
-  colorScheme: ColorScheme.light(
-    primary: Colors.cyan[100]!,
-    onPrimary: Colors.cyan[900]!,
+  colorScheme: ColorScheme(
+    shadow: kLightShadow,
+    surface: kLightBackground,
+    primary: kLightBackground,
     secondary: Colors.cyan,
-    onSecondary: Colors.cyan[900]!,
-    surface: Colors.cyan,
-    onSurface: Colors.cyan[900]!,
-    background: Colors.cyan[100]!,
-    onBackground: Colors.cyan[900]!,
     error: Colors.red,
     onError: Colors.redAccent,
     brightness: Brightness.light,
+    background: kLightBackground,
+    onPrimary: kLightShadow,
+    onSecondary: Colors.cyanAccent,
+    onSurface: kLightShadow,
+    onBackground: kLightShadow,
   ),
 );
+
+bool isDark(BuildContext context) =>
+    ThemeData.estimateBrightnessForColor(Theme.of(context).primaryColor) ==
+            Brightness.dark
+        ? true
+        : false;

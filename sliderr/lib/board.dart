@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -62,6 +61,9 @@ class _BoardState extends State<Board> {
                 numbers: numbers,
                 size: size,
                 clickGrid: (index) => clickGrid(index),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
               ),
               Menu(
                 reset: reset,
@@ -140,6 +142,22 @@ class _BoardState extends State<Board> {
                       const Text(
                         "You Win!!",
                         style: TextStyle(fontSize: 20),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Moves: $move",
+                            style: normalText(context, getSize(context)),
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            "Time: $secondsPassed",
+                            style: normalText(context, getSize(context)),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         width: 220.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_puzzle/utils/theme_model.dart';
 
 import '../utils/constants.dart';
 import 'move.dart';
@@ -28,9 +29,16 @@ class Menu extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(5)),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).shadowColor.withOpacity(0.5),
-            blurRadius: 3,
-            spreadRadius: 3,
+            color: Theme.of(context).shadowColor,
+            offset: const Offset(2, 2),
+            blurRadius: 10,
+            spreadRadius: -5,
+          ),
+          BoxShadow(
+            color: isDark(context) ? Colors.white54 : Colors.black54,
+            offset: const Offset(-2, -2),
+            blurRadius: 10,
+            spreadRadius: -5,
           ),
         ],
       ),
@@ -41,9 +49,9 @@ class Menu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ResetButton(reset: reset),
-              const Divider(color: Colors.black54, thickness: 0),
+              const Divider(thickness: 0),
               Move(move: move),
-              const Divider(color: Colors.black54, thickness: 0),
+              const Divider(thickness: 0),
               Time(secondsPassed: secondsPassed),
             ]),
       ),

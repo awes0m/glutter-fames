@@ -20,3 +20,10 @@ TextStyle titleText(context, size) {
 Size getSize(context) => MediaQuery.of(context).size;
 
 const bool kIsWeb = identical(0, 0.0);
+
+final kLightBackground = Colors.cyan[100]!;
+final kLightTextColor = Colors.deepPurple[900]!;
+final kLightShadow = Colors.cyan[900]!;
+final kDarkBackground = Colors.indigo[600]!;
+const kDarkTextColor = Colors.white;
+final kDarkShadow = Colors.indigo[100]!;
