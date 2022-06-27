@@ -38,7 +38,7 @@ Sliding puzzles are essentially two-dimensional in nature, even if the sliding i
 ## ScreenShot
 
 <img
-      src="https://github.com/awes0m/glutter-fames/blob/main/sliding_puzzle/SCREENSHOTS/sliderGameScreenshot.png"
+      src="./SCREENSHOTS/Capture.JPG"
       alt="Screenshot of Sliderr"
       title="Sliderr !!"
       width="400px"
